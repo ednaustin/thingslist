@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
+
+
+def home(request):
+    return render(request, 'things/home.html')
 
 def signupuser(request):
     if request.method == 'GET':
@@ -19,6 +23,11 @@ def signupuser(request):
                 return render(request, 'things/signupuser.html', {'form':UserCreationForm(), 'error':"That username has already been taken. Please enter a new username."})
         else:
             return render(request, 'things/signupuser.html', {'form':UserCreationForm(), 'error':"Passwords did not match"})
+
+def logoutuser(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home')
 
 def currentthings(request):
     return render(request, 'things/currentthings.html')
