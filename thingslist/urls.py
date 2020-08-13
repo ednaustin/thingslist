@@ -22,11 +22,13 @@ urlpatterns = [
 
     #Auth
     path ('signup/', views.signupuser, name='signupuser'),
+    path ('login/', views.loginuser, name='loginuser'),
     path ('logout/', views.logoutuser, name='logoutuser'),
 
 
     #ThingsList
     path ('', views.home, name='home'),
+    path ('create/', views.createthings, name='createthings'),
     path ('current/', views.currentthings, name='currentthings'),
 
 

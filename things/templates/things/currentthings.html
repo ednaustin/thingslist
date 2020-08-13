@@ -4,4 +4,13 @@
 
 Current
 
+<ul>
+  {% for newthings in things %}
+  <li>
+    {% if newthings.important %}<b>{% endif %} {{ newthings.title }} {% if newthings.important %}</b>{% endif %}
+    {% if newthings.memo %} - {{ newthings.memo}} {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+
 {% endblock %}
