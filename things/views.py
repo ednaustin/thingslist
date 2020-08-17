@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 from .forms import ThingsForm
 from .models import Things
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request, 'things/home.html')
@@ -36,11 +38,13 @@ def loginuser(request):
             login(request, user)
             return redirect('currentthings')
 
+@login_required
 def logoutuser(request):
     if request.method == 'POST':
         logout(request)
         return redirect('home')
 
+@login_required
 def createthings(request):
     if request.method == 'GET':
         return render(request, 'things/createthings.html', {'form':ThingsForm()})
@@ -54,6 +58,41 @@ def createthings(request):
         except ValueError:
             return render(request, 'things/createthings.html', {'form':ThingsForm(), 'error':'Bad data passed in. Try again.'})
 
+@login_required
 def currentthings(request):
     newthings = Things.objects.filter(user=request.user, datecompleted__isnull=True)
     return render(request, 'things/currentthings.html', {'things':newthings})
+
+@login_required
+def completedthings(request):
+    newthings = Things.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
+    return render(request, 'things/completedthings.html', {'things':newthings})
+
+@login_required
+def viewthing(request, thing_pk):
+    thing = get_object_or_404(Things, pk=thing_pk, user=request.user)
+    if request.method == 'GET':
+        form = ThingsForm(instance=thing)
+        return render(request, 'things/viewthing.html', {'thing':thing, 'form':form})
+    else:
+        try:
+            form = ThingsForm(request.POST, instance=thing)
+            form.save()
+            return redirect('currentthings')
+        except ValueError:
+            return render(request, 'things/viewthing.html', {'thing':thing, 'form':form, 'error':'Bad info. Try again.'})
+
+@login_required
+def completething(request, thing_pk):
+    thing = get_object_or_404(Things, pk=thing_pk, user=request.user)
+    if request.method == 'POST':
+        thing.datecompleted = timezone.now()
+        thing.save()
+        return redirect('currentthings')
+
+@login_required
+def deletething(request, thing_pk):
+    thing = get_object_or_404(Things, pk=thing_pk, user=request.user)
+    if request.method == 'POST':
+        thing.delete()
+        return redirect('currentthings')

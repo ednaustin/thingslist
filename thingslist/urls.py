@@ -26,10 +26,14 @@ urlpatterns = [
     path ('logout/', views.logoutuser, name='logoutuser'),
 
 
-    #ThingsList
+    #Things
     path ('', views.home, name='home'),
     path ('create/', views.createthings, name='createthings'),
     path ('current/', views.currentthings, name='currentthings'),
+    path ('completed/', views.completedthings, name='completedthings'),
+    path ('thing/<int:thing_pk>', views.viewthing, name='viewthing'),
+    path ('thing/<int:thing_pk>/complete', views.completething, name='completething'),
+    path ('thing/<int:thing_pk>/delete', views.deletething, name='deletething'),
 
 
 ]

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-Current
+Completed
 
 <ul>
   {% for newthings in things %}
@@ -10,6 +10,7 @@ Current
     <a href="{% url 'viewthing' newthings.id %}">
     {% if newthings.important %}<b>{% endif %} {{ newthings.title }} {% if newthings.important %}</b>{% endif %}
     {% if newthings.memo %} - {{ newthings.memo}} {% endif %}
+    {{ newthings.datecompleted|date:'M j Y H:i' }}
     </a>
   </li>
   {% endfor %}
