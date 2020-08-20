@@ -1,7 +1,31 @@
 {% extends 'things/base.html' %}
 
+{% load static %}
+
 {% block content %}
 
-Home
+<header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+                <!-- Masthead Avatar Image-->
+                <img class="masthead-avatar mb-5" src="{% static 'things/avataaars.svg' %}" alt="be happy" />
+                <!-- Masthead Heading-->
+                <h1 class="masthead-heading text-uppercase mb-0">Be Productive</h1>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Masthead Subheading-->
+                <p class="masthead-subheading font-weight-light mb-0">Don't let the best fiction you write be your todo list. </p>
+                <!-- ><p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p> -->
+                <!-- About Section Button-->
+                <div class="text-center mt-4">
+                    <a class="btn btn-xl btn-outline-light" href="{% url 'signupuser' %}">
+                        <!-- ><i class="fas fa-download mr-2"></i> -->
+                        Get Started
+                    </a>
+            </div>
+        </header>
 
 {% endblock %}

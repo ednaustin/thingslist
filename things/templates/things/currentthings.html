@@ -1,9 +1,57 @@
 {% extends 'things/base.html' %}
 
 {% block content %}
-
 Current
+  <section class="page-section portfolio" id="portfolio">
+    <div class="container">
 
+        <!-- Current Things Heading -->
+        {% if newthings %}
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+              {{ newthings.count }} Current Things{{ newthings.count|pluralize }}
+            </h2>
+        {% else %}
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+              Current Things
+            </h2>
+        {% endif %}
+
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <!-- Things Grid Items -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6 col-lg-4 mb-5">
+              {% if newthings %}
+              <div class="list-group">
+                {% for newthings in things %}
+                  <a href="{% url 'viewthing' newthings.id %}">
+                  {% if newthings.important %}<b>{% endif %} {{ newthings.title }} {% if newthings.important %}</b>{% endif %}
+                  {% if newthings.memo %} - {{ newthings.memo}} {% endif %}
+                  </a>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="container text-center">
+                <p class="text-uppercase mt-4">
+                  Looks like you don't have any Things! Let's get productive.
+                </p>
+              <br>
+              <!-- <div class="text-center mt-4"> -->
+                <a class="btn btn-xl btn-outline-dark" href="{% url 'createthings' %}">Create</a>
+              </div>
+
+            {% endif %}
+            </div>
+        </div>
+      </div>
+    </section>
+
+<!--
 <ul>
   {% for newthings in things %}
   <li>
@@ -14,5 +62,6 @@ Current
   </li>
   {% endfor %}
 </ul>
+-->
 
 {% endblock %}

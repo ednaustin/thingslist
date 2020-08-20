@@ -9,8 +9,8 @@
       <meta name="author" content="Ed Ramirez, EdnAustin" />
       <title>ThingsList</title>
       <!-- Favicon-->
-      <link rel="icon" type="image/x-icon" href="{% static 'things/favicon.ico %}" />
-      <!-- Font Awesome icons (free version)-->
+      <link rel="icon" type="image/x-icon" href="{% static 'things/favicon.ico' %}" />
+      <!-- Font Awesome icons (free version) -->
       <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
       <!-- Google fonts-->
       <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -51,6 +51,10 @@
             {% if user.is_authenticated %}
               <li class="nav-item mx-0 mx-lg-1">
                 <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Logout</a>
+                <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+                   {% csrf_token %}
+                   <button id="signOutBtn" type="submit">Logout</button>
+                 </form>
               </li>
 
               {% else %}
@@ -91,7 +95,9 @@ Logged in as {{ user.username }}
 {% endif %}
 -->
 
+
 {% block content %}{% endblock %}
+
 
     <!-- Footer-->
     <footer class="footer text-center">
@@ -127,7 +133,7 @@ Logged in as {{ user.username }}
     </footer>
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright © Your Website 2020</small></div>
+            <div class="container"><p class="container text-center">© Ed Ramirez {% now "Y"%}</p></div>
         </div>
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
         <div class="scroll-to-top d-lg-none position-fixed">
@@ -139,6 +145,6 @@ Logged in as {{ user.username }}
         <!-- Third party plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <!-- Core theme JS-->
-        <script src="{% static 'things/scripts.js%}"></script>
+        <script src="{% static 'things/scripts.js' %}"></script>
     </body>
 </html>
