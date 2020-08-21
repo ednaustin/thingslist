@@ -1,15 +1,71 @@
 {% extends 'things/base.html' %}
 
 {% block content %}
+<br/>
 
-<h1>Create</h1>
+ <!-- Create Section-->
+ <section class="page-section" id="contact">
+   <div class="container">
+       <!-- Contact Section Heading-->
+       <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">New Thing</h2>
+       <!-- Icon Divider-->
+       <div class="divider-custom">
+           <div class="divider-custom-line"></div>
+           <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+           <div class="divider-custom-line"></div>
+       </div>
+       <!-- Contact Section Form-->
+       <div class="row">
+           <div class="col-lg-8 mx-auto">
+               {% if error %}
+                   <div class="alert alert-danger" role="alert">
+                       {{ error }}
+                   </div>
+               {% endif %}
 
-<h2>{{ error }} </h2>
+               <form method="POST">
+                  {% csrf_token %}
+                   <div class="control-group">
+                       <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                           <label>Title</label>
+                           <input class="form-control" id="title" type="text" placeholder="Title" name="title"/>
+                           <p class="help-block text-danger"></p>
+                       </div>
+                   </div>
+
+                   <div class="control-group">
+                       <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                           <label>Memo</label>
+                           <textarea class="form-control" id="memo" rows="4" placeholder="Memo" name="memo"></textarea>
+                           <p class="help-block text-danger"></p>
+                       </div>
+                   </div>
+
+                   <div class="form-group form-check">
+                       <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                           <label class="form-check-label" for="important">Important</label>
+                           <input class="checkbox" id="important" type="checkbox"  class="form-check-input" />
+                           <p class="help-block text-danger"></p>
+                       </div>
+                   </div>
+
+                   <br />
+                   <div id="success"></div>
+                   <div class="form-group"><button class="btn btn-primary btn-xl" type="submit">Save</button></div>
+               </form>
+           </div>
+       </div>
+   </div>
+ </section>
+
+
+<!-- <h2>{{ error }} </h2>
 
 <form method="POST">
   {% csrf_token %}
 {{ form.as_p }}
 <button type="submit">Save</button>
 </form>
+-->
 
 {% endblock %}

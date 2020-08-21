@@ -1,14 +1,14 @@
 {% extends 'things/base.html' %}
 
 {% block content %}
-Current
-  <section class="page-section portfolio" id="portfolio">
+<br/>
+  <section class="page-section current" id="currentthings">
     <div class="container">
 
         <!-- Current Things Heading -->
-        {% if newthings %}
+        {% if things %}
             <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
-              {{ newthings.count }} Current Things{{ newthings.count|pluralize }}
+              {{ things.count }} Current Thing{{ things.count|pluralize }}
             </h2>
         {% else %}
             <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
@@ -26,19 +26,23 @@ Current
         <!-- Things Grid Items -->
         <div class="row justify-content-center mt-5">
             <div class="col-md-6 col-lg-4 mb-5">
-              {% if newthings %}
-              <div class="list-group">
-                {% for newthings in things %}
-                  <a href="{% url 'viewthing' newthings.id %}">
-                  {% if newthings.important %}<b>{% endif %} {{ newthings.title }} {% if newthings.important %}</b>{% endif %}
-                  {% if newthings.memo %} - {{ newthings.memo}} {% endif %}
-                  </a>
-                {% endfor %}
-              </div>
-            {% else %}
+              {% if things %}
+                <div class="list-group-flush">
+                  {% for newthings in things %}
+                    <a href="{% url 'viewthing' newthings.id %}" class="list-group-item" style="text-decoration:none"><p class="text-uppercase font-weight-bold mt-4">
+                    {% if newthings.important %}<b>{% endif %} {{ newthings.title }} {% if newthings.important %}</b>{% endif %}
+                    {% if newthings.memo %} - {{ newthings.memo}} {% endif %}
+                    </p>
+                    </a>
+                  {% endfor %}
+                </div>
+              {% else %}
               <div class="container text-center">
-                <p class="text-uppercase mt-4">
-                  Looks like you don't have any Things! Let's get productive.
+                <p class="text-uppercase font-weight-bold mt-4">
+                  You don't have any Things.
+                </p>
+                <p class="text-uppercase font-weight-bold mt-4">
+                  Let's get productive.
                 </p>
               <br>
               <!-- <div class="text-center mt-4"> -->
