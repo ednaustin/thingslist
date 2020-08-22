@@ -30,7 +30,7 @@
                 <div class="list-group-flush">
                   {% for newthings in things %}
                     <a href="{% url 'viewthing' newthings.id %}" class="list-group-item" style="text-decoration:none"><p class="text-uppercase font-weight-bold mt-4">
-                    {% if newthings.important %}<b>{% endif %} {{ newthings.title }} {% if newthings.important %}</b>{% endif %}
+                    {% if newthings.important %}<i>{% endif %} {{ newthings.title }} {% if newthings.important %}</i>{% endif %}
                     {% if newthings.memo %} - {{ newthings.memo}} {% endif %}
                     </p>
                     </a>

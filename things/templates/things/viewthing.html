@@ -2,6 +2,78 @@
 
 {% block content %}
 
+
+<br/>
+
+ <!-- Create Section-->
+ <section class="page-section" id="contact">
+   <div class="container">
+       <!-- Contact Section Heading-->
+       <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">New Thing</h2>
+       <!-- Icon Divider-->
+       <div class="divider-custom">
+           <div class="divider-custom-line"></div>
+           <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+           <div class="divider-custom-line"></div>
+       </div>
+       <!-- Contact Section Form-->
+       <div class="row">
+           <div class="col-lg-8 mx-auto">
+               {% if error %}
+                   <div class="alert alert-danger" role="alert">
+                       {{ error }}
+                   </div>
+               {% endif %}
+
+             <form method="POST">
+                {% csrf_token %}
+                 <div class="control-group">
+                     <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                         <label>Title</label>
+                         <input class="form-control" id="title" type="text" name="title" value="{{ thing.title }}" required/>
+                         <p class="help-block text-danger"></p>
+                     </div>
+                 </div>
+
+                 <div class="control-group">
+                     <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                         <label>Memo</label>
+                         <textarea class="form-control" rows="4" name="memo" id="memo">{{ thing.memo }}</textarea>
+                         <p class="help-block text-danger"></p>
+                     </div>
+                 </div>
+
+                 <div class="form-group form-check">
+                    <input type="checkbox" name="important" class="form-check-input" id="important" {% if thing.important %}checked{% endif %}>
+                    <label class="form-check-label" for="important" text="font-weight-bold"> Important</label>
+                 </div>
+
+                 <br />
+                 <div id="success"></div>
+                 <div class="form-group text-center mt-4">
+                   <button class="btn btn-primary btn-xl" type="submit">Save</button>
+                   <button type="button" class="btn btn-success btn-xl" onclick="$('#completething').click()">Complete</button>
+                   <button type="button" class="btn btn-danger btn-xl" onclick="$('#deletething').click()">Delete</button>
+                 </div>
+             </form>
+           </div>
+       </div>
+   </div>
+
+   {% if todo.datecompleted is None %}
+   <form style='display: none;' method="POST" action="{% url 'completething' thing.id %}">
+     {% csrf_token %}
+   <button id="completething" type="submit">Complete</button>
+   </form>
+   {% endif %}
+   <form style='display: none;' method="POST" action="{% url 'deletething' thing.id %}">
+     {% csrf_token %}
+   <button id="deletething" type="submit">Delete</button>
+   </form>
+
+ </section>
+
+<!--
 {{ error }}
 
 {{ thing.title }}
@@ -21,5 +93,6 @@
   {% csrf_token %}
 <button type="submit">Delete</button>
 </form>
+-->
 
 {% endblock %}

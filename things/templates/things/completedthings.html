@@ -2,6 +2,56 @@
 
 {% block content %}
 
+<section class="page-section current" id="currentthings">
+  <br/>
+  <div class="container">
+
+      <!-- Completed Things Heading -->
+          <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+            Completed Things
+          </h2>
+
+      <!-- Icon Divider -->
+      <div class="divider-custom">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+      </div>
+
+      <!-- Things Grid Items -->
+      <div class="row justify-content-center mt-5">
+          <!-- <div class="col-md-6 col-lg-4 mb-5"> -->
+              <div class="list-group-flush">
+                {% for newthings in things %}
+                  <a href="{% url 'viewthing' newthings.id %}" class="list-group-itemlist-group-item list-group-item-action{% if newthings.important %} list-group-item-danger{% endif %}" style="text-decoration:none">
+                    <p class="text-uppercase font-weight-bold mt-4">
+                    <i> {{ newthings.title }} </i>
+                    <!--{% if newthings.memo %} - {{ newthings.memo}} {% endif %}--> -
+                    Completed {{ newthings.datecompleted|date:'M j Y H:i' }}
+                    </p>
+                  </a>
+                {% endfor %}
+              </div>
+
+            <div class="container text-center">
+              <p class="text-uppercase font-weight-bold mt-4">
+                Great work!
+              </p>
+              <p class="text-uppercase font-weight-bold mt-4">
+                Keep it going.
+              </p>
+            <br>
+            <!-- <div class="text-center mt-4"> -->
+              <a class="btn btn-xl btn-outline-dark" href="{% url 'createthings' %}">Create</a>
+            </div>
+          <!-- </div> -->
+      </div>
+    </div>
+
+
+  </section>
+
+<!--
 Completed
 
 <ul>
@@ -15,5 +65,6 @@ Completed
   </li>
   {% endfor %}
 </ul>
+-->
 
 {% endblock %}
